@@ -141,20 +141,7 @@ const getdblabel = () => {
 };
 // getdblabel()
 getlable();
-const tag_submit = () => {
-  axios
-    .post("./tag.php", {
-      number: path_num.value,
-      label: new_tag.value,
-    })
-    .then(function (response) {
-      alert(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-      alert("连接服务器失败，请联系管理员解决问题");
-    });
-};
+
 var n=0
 const next = () =>{
   path_num.value = getRandomElement(null_num)!;
@@ -177,6 +164,22 @@ const next = () =>{
     n=0
   }
 }
+const tag_submit = () => {
+  next()
+  axios
+    .post("./tag.php", {
+      number: path_num.value,
+      label: new_tag.value,
+    })
+    .then(function (response) {
+      console.log(response.data);
+      
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("连接服务器失败，请联系管理员解决问题");
+    });
+};
 </script>
 
 <style>
