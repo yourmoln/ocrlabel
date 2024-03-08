@@ -166,7 +166,6 @@ const next = () =>{
   }
 }
 const tag_submit = () => {
-  next()
   axios
     .post("./tag.php", {
       number: path_num.value,
@@ -180,7 +179,9 @@ const tag_submit = () => {
       console.log(error);
       alert("连接服务器失败，请联系管理员解决问题");
     });
+  next()
 };
+
 </script>
 
 <style>
