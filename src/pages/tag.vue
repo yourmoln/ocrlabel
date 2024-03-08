@@ -166,10 +166,13 @@ const next = () =>{
   }
 }
 const tag_submit = () => {
+  let num:string = path_num.value;
+  let lab:string = new_tag.value;
+  next();
   axios
     .post("./tag.php", {
-      number: path_num.value,
-      label: new_tag.value,
+      number: num,
+      label: lab,
     })
     .then(function (response) {
       console.log(response.data);
@@ -179,7 +182,7 @@ const tag_submit = () => {
       console.log(error);
       alert("连接服务器失败，请联系管理员解决问题");
     });
-  next()
+  
 };
 
 </script>
