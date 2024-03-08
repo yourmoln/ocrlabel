@@ -1,6 +1,5 @@
 import axios from "axios";
 import { HmacSHA256 } from "crypto-js";
-
 const login = (usname: string, psw: string) => {
   axios
     .post("./login/login.php", {

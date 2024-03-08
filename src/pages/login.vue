@@ -5,6 +5,7 @@
       <n-layout class="box">
         <n-card class="login">
           <n-tabs
+            v-if="!islogin"
             default-value="signin"
             size="large"
             justify-content="space-evenly"
@@ -68,6 +69,10 @@
               <n-button type="primary" block secondary strong @click="reg()" :disabled="able"> 注册 </n-button>
             </n-tab-pane>
           </n-tabs>
+          <n-flex v-else>
+            你已经登录了</br>
+            欢迎登录标注系统喵~(=^–^)
+          </n-flex>
         </n-card>
       </n-layout>
     </n-layout>
@@ -87,13 +92,35 @@ import {
   NTabs,
   NConfigProvider,
   NSelect,
+  NFlex
 } from "naive-ui";
 import theme from "@/config/theme";
 import register from "@/api/register";
-import login from "@/api/login";
 import { ref } from "vue";
+
+import axios from "axios";
+const getid = () => {
+  axios
+    .post("./user/getid.php", {
+    })
+    .then(function (response) {
+      console.log(response.data)
+      if (response.data != "请先登录"){
+        islogin.value = true
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      islogin.value = false
+      alert("连接服务器失败，请联系管理员解决问题");
+    });
+};
+getid()
+
+
 const able = ref(false)
-const school = ref(null);
+const school = ref(null)
+const islogin = ref(false)
 const options = [
   {
     label: "广州航海学院",
@@ -109,7 +136,6 @@ const password = ref(null);
 const apassword = ref(null);
 const inv = ref(null);
 const reg = () => {
-  able.value=true
   if (password.value!=apassword.value){
     alert("两次密码不同")
   }else if(password.value == null || username.value == null || inv.value == null || school.value==null){ 
@@ -117,17 +143,29 @@ const reg = () => {
   }else{
     register(username.value,password.value,inv.value,school.value)
   }
-  
 }
+import { HmacSHA256 } from "crypto-js";
 const _login = () => {
-  able.value=true
   if(password.value == null || username.value == null){ 
     alert("请输入完整")
   }else{
-    login(username.value,password.value)
+    axios
+    .post("./login/login.php", {
+      username: username.value,
+      password: HmacSHA256(password.value, "ocr").toString(),
+    })
+    .then(function (response) {
+      alert(response.data);
+      getid()
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("连接服务器失败，请联系管理员解决问题");
+    });
   }
-  
+
 }
+
 </script>
 
 <style>
