@@ -144,6 +144,7 @@ getlable();
 
 var n=0
 const next = () =>{
+  new_tag.value = "";
   path_num.value = getRandomElement(null_num)!;
   getdblabel();
   getlable();
