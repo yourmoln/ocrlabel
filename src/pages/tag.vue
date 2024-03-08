@@ -106,7 +106,7 @@ function getRandomElement<T>(array: T[]): T | undefined {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 }
-var null_num:array;
+var null_num:any;
 const getnull = () => {
   dbtag.value = "加载中......";
   axios
