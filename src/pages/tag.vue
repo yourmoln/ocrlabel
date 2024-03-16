@@ -149,7 +149,7 @@ const next = () =>{
   getdblabel();
   getlable();
   n=n+1
-  if(n>10){
+  if(n>3){
     axios
     .post("./getnull.php", {
       number: path_num.value,
