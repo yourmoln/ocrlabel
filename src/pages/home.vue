@@ -61,7 +61,7 @@
             </tbody>
           </n-table>
           <n-card> 主页懒得做了，原谅我 </n-card>
-          <n-button>更新数据集</n-button>
+          <n-button @click="getxt">更新数据集</n-button>
         </n-flex>
       </n-layout>
     </n-layout>
@@ -85,15 +85,17 @@ import {
 import theme from "@/config/theme";
 import { MdSave } from "@vicons/ionicons4";
 import axios from "axios";
-axios
-  .post("./getxt.php", {})
-  .then(function (response) {
-    alert(response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
-    alert("连接服务器失败，请联系管理员解决问题");
-  });
+const getxt = () => {
+  axios
+    .post("./getxt.php", {})
+    .then(function (response) {
+      alert(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("连接服务器失败，请联系管理员解决问题");
+    });
+};
 </script>
 
 <style>
